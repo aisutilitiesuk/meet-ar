@@ -22,7 +22,7 @@ export default function ContactButtons({ layout = 'grid' }: ContactButtonsProps)
     const vCardData = `BEGIN:VCARD
 VERSION:3.0
 FN:Andrew Richards
-ORG:Andrew Richards Group
+ORG:Andrew Richards
 TITLE:Founder
 TEL;TYPE=CELL:+447927586411
 EMAIL:andrew@andrewrichardsgroup.com

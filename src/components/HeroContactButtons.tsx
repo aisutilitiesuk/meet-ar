@@ -11,7 +11,7 @@ VERSION:3.0
 FN:Andrew Richards
 EMAIL:ar@andrewrichards.net
 TEL;TYPE=CELL:${PHONE}
-ORG:AIS Utilities
+ORG:Andrew Richards
 URL:https://andrewrichards.net
 ADR;TYPE=WORK:;;;;;;United Kingdom
 END:VCARD`;

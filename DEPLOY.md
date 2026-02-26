@@ -41,8 +41,10 @@ Before the first deploy, add this in the Vercel project:
 | Name | Value | Where |
 |------|--------|--------|
 | `BREVO_API_KEY` | Your Brevo API key | Production (and Preview if you use it) |
+| `VITE_SITE_URL` | Your live site URL (e.g. `https://meet.andrewrichards.net`) | Production (and Preview if you use it) |
 
 - **BREVO_API_KEY** is used only by the serverless function (`/api/brevo-submit`); it is never sent to the client.
+- **VITE_SITE_URL** is used at build time so link previews (Open Graph / Twitter) show the correct image and URL when the homepage is shared. Default is `https://meet.andrewrichards.net`; set it only if you use a different URL (e.g. Vercel preview).
 
 3. Save.
 

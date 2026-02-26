@@ -1,42 +1,32 @@
-const BREVO_API_KEY = process.env.BREVO_API_KEY ?? '';
-const BREVO_API_URL = 'https://api.brevo.com/v3/contacts';
-
-interface BrevoAttributes {
+export interface BrevoAttributes {
   [key: string]: string | undefined;
 }
 
+/**
+ * Submits contact data to Brevo via the Vercel serverless API route.
+ * The Brevo API key is only stored in Vercel env vars and used on the server;
+ * it is never sent to the client.
+ */
 export async function submitToBrevo(
   email: string,
   attributes: BrevoAttributes,
   listId: number
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const response = await fetch(BREVO_API_URL, {
+    const base = import.meta.env.VITE_API_BASE_URL ?? '';
+    const res = await fetch(`${base}/api/brevo-submit`, {
       method: 'POST',
-      headers: {
-        'api-key': BREVO_API_KEY,
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        attributes,
-        listIds: [listId],
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, attributes, listId }),
     });
+    const data = await res.json().catch(() => ({}));
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      return {
-        success: false,
-        error: errorData.message || `HTTP ${response.status}: ${response.statusText}`,
-      };
-    }
-
-    return { success: true };
-  } catch (error) {
+    if (data?.success === true) return { success: true };
+    return { success: false, error: (data?.error as string) ?? 'Request failed' };
+  } catch (err) {
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Network error',
+      error: err instanceof Error ? err.message : 'Network error',
     };
   }
 }

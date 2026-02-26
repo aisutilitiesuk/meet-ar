@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { TrendingUp, Shield, Building2, CheckCircle, ExternalLink, Phone, MessageCircle, Calendar, Download } from 'lucide-react';
+import { TrendingUp, Shield, Building2, CheckCircle, ExternalLink } from 'lucide-react';
 import Button from '../components/Button';
 import FormInput from '../components/FormInput';
 import FormTextarea from '../components/FormTextarea';
-import { supabase } from '../lib/supabase';
+import HeroContactButtons from '../components/HeroContactButtons';
 import { submitToBrevo } from '../lib/brevo';
 
 export default function Investment() {
@@ -40,10 +40,6 @@ export default function Investment() {
       34
     );
 
-    if (brevoResult.success) {
-      await supabase.from('partnership_enquiries').insert([data]);
-    }
-
     setLoading(false);
 
     if (brevoResult.success) {
@@ -51,26 +47,6 @@ export default function Investment() {
       e.currentTarget.reset();
       setTimeout(() => setSuccess(false), 5000);
     }
-  };
-
-  const handleSaveContact = () => {
-    const vcard = `BEGIN:VCARD
-VERSION:3.0
-FN:Andrew Richards
-EMAIL:ar@andrewrichards.net
-TEL;TYPE=CELL:+447927586411
-ORG:AIS Utilities
-URL:https://andrewrichards.net
-ADR;TYPE=WORK:;;;;;;United Kingdom
-END:VCARD`;
-
-    const blob = new Blob([vcard], { type: 'text/vcard' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'andrew-richards-contact.vcf';
-    link.click();
-    window.URL.revokeObjectURL(url);
   };
 
   return (
@@ -85,40 +61,7 @@ END:VCARD`;
               <p className="text-xl text-gray-600 mb-8">
                 We work with family offices, high-net-worth individuals and strategic partners on structured SME opportunities across property, construction and infrastructure.
               </p>
-              <div className="flex flex-col gap-3">
-                <a
-                  href="tel:+447927586411"
-                  className="flex items-center gap-3 px-6 py-3 bg-[#c32c28] text-white rounded-lg hover:bg-[#a02320] transition-colors font-semibold"
-                >
-                  <Phone size={20} />
-                  <span>Call</span>
-                </a>
-                <a
-                  href="https://wa.me/447927586411"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-6 py-3 bg-[#25D366] text-white rounded-lg hover:bg-[#20BA5A] transition-colors font-semibold"
-                >
-                  <MessageCircle size={20} />
-                  <span>WhatsApp</span>
-                </a>
-                <a
-                  href="https://outlook.office.com/bookwithme/user/beb3f6ea8a2249038fc2457c1c77b5f4@energeyes.me?anonymous&ep=pcard"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-6 py-3 bg-[#213b5b] text-white rounded-lg hover:bg-[#1a2f4a] transition-colors font-semibold"
-                >
-                  <Calendar size={20} />
-                  <span>Book a Meeting</span>
-                </a>
-                <button
-                  onClick={handleSaveContact}
-                  className="flex items-center gap-3 px-6 py-3 border-2 border-[#213b5b] text-[#213b5b] rounded-lg hover:bg-[#213b5b] hover:text-white transition-colors font-semibold"
-                >
-                  <Download size={20} />
-                  <span>Save Contact</span>
-                </button>
-              </div>
+              <HeroContactButtons />
             </div>
             <div className="relative h-full flex items-center justify-center">
               <img

@@ -3,7 +3,8 @@ import { Zap, CheckCircle, Network, TrendingUp } from 'lucide-react';
 import Button from '../components/Button';
 import FormInput from '../components/FormInput';
 import FormTextarea from '../components/FormTextarea';
-import { supabase } from '../lib/supabase';
+import HeroContactButtons from '../components/HeroContactButtons';
+import { submitToBrevo } from '../lib/brevo';
 
 export default function Utilities() {
   const [loading, setLoading] = useState(false);
@@ -14,23 +15,27 @@ export default function Utilities() {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const data = {
-      organisation: formData.get('organisation') as string,
-      project_type: formData.get('project_location') as string,
-      location: formData.get('utility_scope') as string,
-      estimated_value: formData.get('estimated_programme') as string,
-      start_date: '',
-      notes: formData.get('notes') as string,
-      name: formData.get('name') as string,
-      phone: formData.get('phone') as string,
-      email: formData.get('email') as string,
-    };
+    const email = formData.get('email') as string;
+    const name = formData.get('name') as string;
+    const phone = formData.get('phone') as string;
 
-    const { error } = await supabase.from('construction_enquiries').insert([data]);
+    const brevoResult = await submitToBrevo(
+      email,
+      {
+        NAME: name,
+        PHONE: phone,
+        ORGANISATION: formData.get('organisation') as string,
+        PROJECT_TYPE: formData.get('project_location') as string,
+        LOCATION: formData.get('utility_scope') as string,
+        ESTIMATED_VALUE: formData.get('estimated_programme') as string,
+        NOTES: formData.get('notes') as string,
+      },
+      36
+    );
 
     setLoading(false);
 
-    if (!error) {
+    if (brevoResult.success) {
       setSuccess(true);
       e.currentTarget.reset();
       setTimeout(() => setSuccess(false), 5000);
@@ -47,20 +52,30 @@ export default function Utilities() {
           <p className="text-xl text-gray-600 mb-8">
             £40m+ secured contract pipeline with integrated in-house traffic management, jointing and civils capability.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Infrastructure Enquiry
-            </Button>
-            <Button size="lg" variant="secondary">Framework Discussion</Button>
-            <Button
-              size="lg"
-              variant="outline"
-            >
-              Speak to the Team
-            </Button>
+          <div className="flex flex-col items-center gap-6">
+            <HeroContactButtons />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                size="lg"
+                onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Infrastructure Enquiry
+              </Button>
+              <Button
+                size="lg"
+                variant="secondary"
+                onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Framework Discussion
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Speak to the Team
+              </Button>
+            </div>
           </div>
         </div>
       </section>

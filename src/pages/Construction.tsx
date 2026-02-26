@@ -3,7 +3,7 @@ import { Home, Building, CheckCircle, Award } from 'lucide-react';
 import Button from '../components/Button';
 import FormInput from '../components/FormInput';
 import FormTextarea from '../components/FormTextarea';
-import { supabase } from '../lib/supabase';
+import HeroContactButtons from '../components/HeroContactButtons';
 import { submitToBrevo } from '../lib/brevo';
 
 export default function Construction() {
@@ -46,10 +46,6 @@ export default function Construction() {
       36
     );
 
-    if (brevoResult.success) {
-      await supabase.from('construction_enquiries').insert([data]);
-    }
-
     setLoading(false);
 
     if (brevoResult.success) {
@@ -69,20 +65,30 @@ export default function Construction() {
           <p className="text-xl text-gray-600 mb-8">
             Trusted by Housing Associations across South Wales to deliver void programmes, refurbishments and complex schemes at scale.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Discuss a Scheme
-            </Button>
-            <Button size="lg" variant="secondary">Framework Enquiry</Button>
-            <Button
-              size="lg"
-              variant="outline"
-            >
-              Speak to the Team
-            </Button>
+          <div className="flex flex-col items-center gap-6">
+            <HeroContactButtons />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                size="lg"
+                onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Discuss a Scheme
+              </Button>
+              <Button
+                size="lg"
+                variant="secondary"
+                onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Framework Enquiry
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Speak to the Team
+              </Button>
+            </div>
           </div>
         </div>
       </section>

@@ -3,7 +3,7 @@ import { Building, Zap, Wrench, Shield, CheckCircle } from 'lucide-react';
 import Button from '../components/Button';
 import FormInput from '../components/FormInput';
 import FormSelect from '../components/FormSelect';
-import { supabase } from '../lib/supabase';
+import HeroContactButtons from '../components/HeroContactButtons';
 import { submitToBrevo } from '../lib/brevo';
 
 export default function PropertyManagement() {
@@ -42,10 +42,6 @@ export default function PropertyManagement() {
       33
     );
 
-    if (brevoResult.success) {
-      await supabase.from('property_management_enquiries').insert([data]);
-    }
-
     setLoading(false);
 
     if (brevoResult.success) {
@@ -65,15 +61,30 @@ export default function PropertyManagement() {
           <p className="text-xl text-gray-600 mb-8">
             Over 800 properties under management across South Wales — with integrated billing, legal, energy and facilities capability.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg">Portfolio Enquiry</Button>
-            <Button size="lg" variant="secondary">Switch to Us</Button>
-            <Button
-              size="lg"
-              variant="outline"
-            >
-              Speak to the Team
-            </Button>
+          <div className="flex flex-col items-center gap-6">
+            <HeroContactButtons />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                size="lg"
+                onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Portfolio Enquiry
+              </Button>
+              <Button
+                size="lg"
+                variant="secondary"
+                onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Switch to Us
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Speak to the Team
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -334,7 +345,7 @@ export default function PropertyManagement() {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
+      <section id="enquiry-form" className="py-16 bg-gray-50">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-[#213b5b] mb-8 text-center">
             Request a Portfolio Review

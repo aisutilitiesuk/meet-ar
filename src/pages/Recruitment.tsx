@@ -3,7 +3,7 @@ import { Users, Globe, CheckCircle, Briefcase } from 'lucide-react';
 import Button from '../components/Button';
 import FormInput from '../components/FormInput';
 import FormSelect from '../components/FormSelect';
-import { supabase } from '../lib/supabase';
+import HeroContactButtons from '../components/HeroContactButtons';
 import { submitToBrevo } from '../lib/brevo';
 
 export default function Recruitment() {
@@ -44,10 +44,6 @@ export default function Recruitment() {
       35
     );
 
-    if (brevoResult.success) {
-      await supabase.from('recruitment_enquiries').insert([data]);
-    }
-
     setLoading(false);
 
     if (brevoResult.success) {
@@ -67,20 +63,30 @@ export default function Recruitment() {
           <p className="text-xl text-gray-600 mb-8">
             Temporary labour, rail staffing and international professional resourcing supported by Employer of Record (EOR) services.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Request Labour
-            </Button>
-            <Button size="lg" variant="secondary">Rail Staffing Enquiry</Button>
-            <Button
-              size="lg"
-              variant="outline"
-            >
-              International Resourcing
-            </Button>
+          <div className="flex flex-col items-center gap-6">
+            <HeroContactButtons />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                size="lg"
+                onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Request Labour
+              </Button>
+              <Button
+                size="lg"
+                variant="secondary"
+                onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Rail Staffing Enquiry
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                International Resourcing
+              </Button>
+            </div>
           </div>
         </div>
       </section>

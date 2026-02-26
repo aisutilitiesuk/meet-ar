@@ -3,7 +3,7 @@ import { MapPin, Handshake, CheckCircle, Building2 } from 'lucide-react';
 import Button from '../components/Button';
 import FormInput from '../components/FormInput';
 import FormSelect from '../components/FormSelect';
-import { supabase } from '../lib/supabase';
+import HeroContactButtons from '../components/HeroContactButtons';
 import { submitToBrevo } from '../lib/brevo';
 
 export default function PropertyDevelopment() {
@@ -44,10 +44,6 @@ export default function PropertyDevelopment() {
       31
     );
 
-    if (brevoResult.success) {
-      await supabase.from('site_submissions').insert([data]);
-    }
-
     setLoading(false);
 
     if (brevoResult.success) {
@@ -67,26 +63,30 @@ export default function PropertyDevelopment() {
           <p className="text-xl text-gray-600 mb-8">
             Sourcing, planning and delivering high-quality residential schemes across South Wales — with forward funding partners and JV opportunities in London and South Wales.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              onClick={() => document.getElementById('submit-site')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Submit a Site
-            </Button>
-            <Button
-              size="lg"
-              variant="secondary"
-              onClick={() => document.getElementById('jv-section')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Discuss a JV
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-            >
-              Speak to the Team
-            </Button>
+          <div className="flex flex-col items-center gap-6">
+            <HeroContactButtons />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                size="lg"
+                onClick={() => document.getElementById('submit-site')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Submit a Site
+              </Button>
+              <Button
+                size="lg"
+                variant="secondary"
+                onClick={() => document.getElementById('jv-section')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Discuss a JV
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => document.getElementById('submit-site')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Speak to the Team
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -178,7 +178,12 @@ export default function PropertyDevelopment() {
           <p className="text-gray-700 mb-6">
             If you control land or capital and want a delivery-focused partner, we are open to structured discussions.
           </p>
-          <Button size="lg">Discuss a JV</Button>
+          <Button
+            size="lg"
+            onClick={() => document.getElementById('submit-site')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            Discuss a JV
+          </Button>
         </div>
       </section>
 

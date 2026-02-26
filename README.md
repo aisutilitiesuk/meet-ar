@@ -7,9 +7,8 @@ A modern, responsive website for Andrew Richards Group showcasing property devel
 - **Frontend**: React 18 + TypeScript + Vite
 - **Styling**: Tailwind CSS
 - **Routing**: React Router DOM
-- **Database**: Supabase
 - **Icons**: Lucide React
-- **Email Marketing**: Brevo API integration
+- **Email / leads**: Brevo (via Vercel serverless API)
 
 ## Getting Started
 
@@ -26,9 +25,7 @@ A modern, responsive website for Andrew Richards Group showcasing property devel
    npm install
    ```
 
-3. Set up environment variables:
-   - Copy `.env.example` to `.env`
-   - Add your Supabase credentials
+3. (Optional) For local API testing, copy `.env.example` to `.env` and add `BREVO_API_KEY`. For full local form testing, run `npx vercel dev` so the `/api/brevo-submit` route is available.
 
 4. Run the development server:
    ```bash
@@ -41,21 +38,14 @@ A modern, responsive website for Andrew Richards Group showcasing property devel
 
 1. Push your code to GitHub
 2. Import your repository in Vercel
-3. Add environment variables in Vercel dashboard:
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
+3. Add **BREVO_API_KEY** in Vercel project → Settings → Environment Variables
 4. Deploy
 
-### Environment Variables
-
-Set the following environment variables in your Vercel project settings:
-
-- `VITE_SUPABASE_URL`: Your Supabase project URL
-- `VITE_SUPABASE_ANON_KEY`: Your Supabase anonymous key
+See **DEPLOY.md** for a step-by-step guide.
 
 ### Build Settings
 
-Vercel will automatically detect the configuration from `vercel.json`:
+Vercel will use `vercel.json`:
 
 - **Build Command**: `npm run build`
 - **Output Directory**: `dist`
@@ -65,7 +55,7 @@ Vercel will automatically detect the configuration from `vercel.json`:
 
 - Responsive design across all devices
 - Service pages for all business verticals
-- Contact form with Supabase and Brevo integration
+- Contact forms with Brevo integration (API key kept server-side)
 - Direct contact options (Call, WhatsApp, Book Meeting, Save Contact)
 - Deal flow information section
 - Credibility strip with key metrics
@@ -83,9 +73,11 @@ Vercel will automatically detect the configuration from `vercel.json`:
 ```
 src/
 ├── components/     # Reusable components
-├── pages/         # Page components
-├── lib/           # Utilities and configurations
-└── main.tsx       # Application entry point
+├── pages/          # Page components
+├── lib/            # Utilities (e.g. Brevo API client)
+└── main.tsx        # Application entry point
+api/
+└── brevo-submit.ts # Vercel serverless function (Brevo proxy)
 ```
 
 ## Contact

@@ -4,7 +4,7 @@ import FormInput from './FormInput';
 import FormTextarea from './FormTextarea';
 import FormSelect from './FormSelect';
 import Button from './Button';
-import { supabase } from '../lib/supabase';
+import { submitToBrevo } from '../lib/brevo';
 
 export default function DealFlowSection() {
   const [activeForm, setActiveForm] = useState<'site' | 'investment' | 'construction' | null>(null);
@@ -16,22 +16,27 @@ export default function DealFlowSection() {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const data = {
-      site_location: formData.get('site_location') as string,
-      site_size: formData.get('site_size') as string,
-      planning_status: formData.get('planning_status') as string,
-      existing_use: formData.get('existing_use') as string,
-      guide_price: formData.get('guide_price') as string,
-      name: formData.get('name') as string,
-      phone: formData.get('phone') as string,
-      email: formData.get('email') as string,
-    };
+    const email = formData.get('email') as string;
+    const name = formData.get('name') as string;
+    const phone = formData.get('phone') as string;
 
-    const { error } = await supabase.from('site_submissions').insert([data]);
+    const result = await submitToBrevo(
+      email,
+      {
+        NAME: name,
+        PHONE: phone,
+        SITE_LOCATION: formData.get('site_location') as string,
+        SITE_SIZE: formData.get('site_size') as string,
+        PLANNING_STATUS: formData.get('planning_status') as string,
+        EXISTING_USE: formData.get('existing_use') as string,
+        GUIDE_PRICE: formData.get('guide_price') as string,
+      },
+      31
+    );
 
     setLoading(false);
 
-    if (!error) {
+    if (result.success) {
       setSuccess(true);
       e.currentTarget.reset();
       setTimeout(() => {
@@ -46,22 +51,27 @@ export default function DealFlowSection() {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const data = {
-      opportunity_type: formData.get('opportunity_type') as string,
-      location: formData.get('location') as string,
-      gdv: formData.get('gdv') as string,
-      capital_required: formData.get('capital_required') as string,
-      timeline: formData.get('timeline') as string,
-      name: formData.get('name') as string,
-      phone: formData.get('phone') as string,
-      email: formData.get('email') as string,
-    };
+    const email = formData.get('email') as string;
+    const name = formData.get('name') as string;
+    const phone = formData.get('phone') as string;
 
-    const { error } = await supabase.from('investment_enquiries').insert([data]);
+    const result = await submitToBrevo(
+      email,
+      {
+        NAME: name,
+        PHONE: phone,
+        OPPORTUNITY_TYPE: formData.get('opportunity_type') as string,
+        LOCATION: formData.get('location') as string,
+        GDV: formData.get('gdv') as string,
+        CAPITAL_REQUIRED: formData.get('capital_required') as string,
+        TIMELINE: formData.get('timeline') as string,
+      },
+      34
+    );
 
     setLoading(false);
 
-    if (!error) {
+    if (result.success) {
       setSuccess(true);
       e.currentTarget.reset();
       setTimeout(() => {
@@ -76,23 +86,28 @@ export default function DealFlowSection() {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const data = {
-      organisation: formData.get('organisation') as string,
-      project_type: formData.get('project_type') as string,
-      location: formData.get('location') as string,
-      estimated_value: formData.get('estimated_value') as string,
-      start_date: formData.get('start_date') as string,
-      notes: formData.get('notes') as string,
-      name: formData.get('name') as string,
-      phone: formData.get('phone') as string,
-      email: formData.get('email') as string,
-    };
+    const email = formData.get('email') as string;
+    const name = formData.get('name') as string;
+    const phone = formData.get('phone') as string;
 
-    const { error } = await supabase.from('construction_enquiries').insert([data]);
+    const result = await submitToBrevo(
+      email,
+      {
+        NAME: name,
+        PHONE: phone,
+        ORGANISATION: formData.get('organisation') as string,
+        PROJECT_TYPE: formData.get('project_type') as string,
+        LOCATION: formData.get('location') as string,
+        ESTIMATED_VALUE: formData.get('estimated_value') as string,
+        START_DATE: formData.get('start_date') as string,
+        NOTES: formData.get('notes') as string,
+      },
+      36
+    );
 
     setLoading(false);
 
-    if (!error) {
+    if (result.success) {
       setSuccess(true);
       e.currentTarget.reset();
       setTimeout(() => {

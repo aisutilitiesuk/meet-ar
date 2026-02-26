@@ -38,17 +38,17 @@ Forms in the app call `/api/brevo-submit`; Vite proxies that to the local API.
 
 ## 3. Forms to test
 
-| Page | Form / section | List ID | How to open |
-|------|----------------|--------|-------------|
-| **Home** | Deal Flow – Land & Development | 31 | Home → Submit a Site / Deal Flow → Land & Development |
-| **Home** | Deal Flow – Investment / JV | 34 | Deal Flow → Investment / JV |
-| **Home** | Deal Flow – Construction / Utilities | 36 | Deal Flow → Construction / Utilities |
-| **Recruitment** | Request Labour / enquiry form | 35 | /recruitment → scroll to form or click Request Labour |
-| **Construction** | Discuss a Scheme / enquiry form | 36 | /construction → scroll to form or click Discuss a Scheme |
-| **Property Management** | Portfolio Review | 33 | /property-management → scroll to form or click Portfolio Enquiry |
-| **Property Development** | Submit a Site | 31 | /property-development → Submit a Site or scroll to form |
-| **Investment** | Partnership enquiry | 34 | /investment → scroll to enquiry form |
-| **Utilities** | Infrastructure Enquiry | 36 | /utilities → scroll to form or click Infrastructure Enquiry |
+| Page | Form / section | List ID | Brevo list |
+|------|----------------|--------|------------|
+| **Home** | Deal Flow – Land & Development | 31 | Site Submissions |
+| **Home** | Deal Flow – Investment / JV | 36 | Partnership Enquiries |
+| **Home** | Deal Flow – Construction / Utilities | 33 | Construction Enquiries |
+| **Recruitment** | Request Labour / enquiry form | 35 | Recruitment Enquiries |
+| **Construction** | Discuss a Scheme / enquiry form | 33 | Construction Enquiries |
+| **Property Management** | Portfolio Review | 34 | Property Management Enquiries |
+| **Property Development** | Submit a Site | 31 | Site Submissions |
+| **Investment** | Partnership enquiry | 32 | Investment Enquiries |
+| **Utilities** | Infrastructure Enquiry | 33 | Construction Enquiries |
 
 Use a real or test email; check the corresponding list in Brevo to confirm the contact was added.
 

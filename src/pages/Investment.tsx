@@ -37,7 +37,7 @@ export default function Investment() {
         INVESTMENT_EXPERIENCE: data.investment_experience,
         AREAS_OF_INTEREST: data.areas_of_interest,
       },
-      34
+      32
     );
 
     setLoading(false);

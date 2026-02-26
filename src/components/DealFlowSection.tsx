@@ -66,7 +66,7 @@ export default function DealFlowSection() {
         CAPITAL_REQUIRED: formData.get('capital_required') as string,
         TIMELINE: formData.get('timeline') as string,
       },
-      34
+      36
     );
 
     setLoading(false);
@@ -102,7 +102,7 @@ export default function DealFlowSection() {
         START_DATE: formData.get('start_date') as string,
         NOTES: formData.get('notes') as string,
       },
-      36
+      33
     );
 
     setLoading(false);

@@ -39,7 +39,7 @@ export default function PropertyManagement() {
         NUMBER_OF_UNITS: data.number_of_units,
         LOCATION: data.location,
       },
-      33
+      34
     );
 
     setLoading(false);
